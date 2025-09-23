@@ -38,13 +38,22 @@ def match(pattern: List[str], source: List[str]) -> List[str]:
         #   and come back to this one afterwards
 
         elif pattern[pind] == "%":
-            if pind == len(pattern)-1:
-                combined = " ".joined(source[sind:])
+            if pind == len(pattern) - 1: # if % is the last element in pattern
+                combined = " ".join(source[sind:])
                 result.append(combined)
                 print(result)
                 return result
             else:
-                pass
+                pind += 1
+                accum = ""
+                while pattern[pind] != source[sind]:
+                    accum += source[sind] + " "
+                    sind += 1
+
+                    if sind == len(source):
+                        return None
+                
+                result.append(accum.strip())
 
         # 3) if we reached the end of the source but not the pattern
 
